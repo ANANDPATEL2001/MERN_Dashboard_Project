@@ -13,6 +13,10 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import ForumIcon from '@mui/icons-material/Forum';
+import AddHomeIcon from '@mui/icons-material/AddHome';
+import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
 
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
@@ -20,12 +24,32 @@ import { useGetDashboardQuery, useGetOverviewDataQuery } from "state/api";
 import StatBox from "components/StatBox";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
+import { useMemo } from "react";
 
 const Dashboard = () => {
     const theme = useTheme();
     const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
     const { data, isLoading } = useGetDashboardQuery();
     const newData = useGetOverviewDataQuery();
+    console.log("New Summit data is :", newData.data)
+
+    let count = 0;
+    let relevance = 0;
+    let intensity = 0;
+    let country = 0;
+    const fun = useMemo(() => {
+        if (!newData.data || newData.isLoading) return "Loading...";
+
+        Object.entries(newData.data).forEach((item) => {
+            // console.log("New data item is : ", item)
+            relevance += item[1].relevance;
+            intensity += item[1].intensity;
+            if (item[1].country != null && item[1].country != "")
+                country++;
+            count++;
+        })
+
+    }, [newData.data])
 
     const columns = [
         {
@@ -107,23 +131,23 @@ const Dashboard = () => {
             >
                 {/* ROW 1 */}
                 <StatBox
-                    title="Total Customers"
-                    value={data && data.totalCustomers}
+                    title="Total Summits"
+                    value={count}
                     increase="+14%"
                     description="Since last month"
                     icon={
-                        <Email
+                        <ForumIcon
                             sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
                         />
                     }
                 />
                 <StatBox
-                    title="Sales Today"
-                    value={data && data.todayStats.totalSales}
+                    title="Relevance Today"
+                    value={relevance > 10 ^ 5 ? "Million+" : relevance}
                     increase="+21%"
                     description="Since last month"
                     icon={
-                        <PointOfSale
+                        <AddHomeIcon
                             sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
                         />
                     }
@@ -138,23 +162,23 @@ const Dashboard = () => {
                     {/* <OverviewChart view="sales" isDashboard={true} /> */}
                 </Box>
                 <StatBox
-                    title="Monthly Sales"
-                    value={data && data.thisMonthStats.totalSales}
+                    title="No. of Times countries Explored"
+                    value={country}
                     increase="+5%"
                     description="Since last month"
                     icon={
-                        <PersonAdd
+                        <AssuredWorkloadIcon
                             sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
                         />
                     }
                 />
                 <StatBox
-                    title="Yearly Sales"
-                    value={data && data.yearlySalesTotal}
+                    title="Updated Intensity"
+                    value={intensity > 10 ^ 5 ? "Million+" : intensity}
                     increase="+43%"
                     description="Since last month"
                     icon={
-                        <Traffic
+                        <ClearAllIcon
                             sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
                         />
                     }

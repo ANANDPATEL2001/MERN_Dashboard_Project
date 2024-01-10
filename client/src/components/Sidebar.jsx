@@ -34,7 +34,7 @@ import TopicIcon from '@mui/icons-material/Topic';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import FlexBetween from "./FlexBetween";
-import profileImage from "assets/profile.jpeg";
+import profileImage from "assets/profile.jpg";
 
 const navItems = [
   {
@@ -95,18 +95,18 @@ const navItems = [
   //   text: "Breakdown",
   //   icon: <PieChartOutlined />,
   // },
-  {
-    text: "Management",
-    icon: null,
-  },
+  // {
+  //   text: "Management",
+  //   icon: null,
+  // },
   // {
   //   text: "Admin",
   //   icon: <AdminPanelSettingsOutlined />,
   // },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
+  // {
+  //   text: "Performance",
+  //   icon: <TrendingUpOutlined />,
+  // },
 ];
 
 const Sidebar = ({
