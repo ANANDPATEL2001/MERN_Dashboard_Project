@@ -25,6 +25,7 @@ import StatBox from "components/StatBox";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import { useMemo } from "react";
+import TotalIntensity from "../../components/TotalIntensity";
 
 const Dashboard = () => {
     const theme = useTheme();
@@ -156,10 +157,11 @@ const Dashboard = () => {
                     gridColumn="span 8"
                     gridRow="span 2"
                     backgroundColor={theme.palette.background.alt}
-                    p="1rem"
+                    p="0.5rem"
                     borderRadius="0.55rem"
                 >
                     {/* <OverviewChart view="sales" isDashboard={true} /> */}
+                    <TotalIntensity />
                 </Box>
                 <StatBox
                     title="No. of Times countries Explored"
@@ -231,9 +233,9 @@ const Dashboard = () => {
                     borderRadius="0.55rem"
                 >
                     <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-                        Topic Stats over All Region
+                        Topic Stats over Technological
                     </Typography>
-                    <BreakdownChart isDashboard={true} />
+                    <BreakdownChart isDashboard={true} pestle="Technological" />
                     <Typography
                         p="0 0.4rem"
                         fontSize="0.8rem"

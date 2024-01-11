@@ -3,9 +3,9 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { useGetTopicDataQuery } from "state/api";
 
-const BreakdownChart = ({ isDashboard = false }) => {
+const BreakdownChart = ({ isDashboard = false, pestle }) => {
   const { data, isLoading } = useGetTopicDataQuery();
-  // console.log("Topic data is :", data);
+  console.log("Topic data is :", data);
   const isNonMobile = useMediaQuery("min-width : 1200px");
   const theme = useTheme();
 
@@ -14,8 +14,10 @@ const BreakdownChart = ({ isDashboard = false }) => {
   const mp = new Map();
   // console.log(typeof (data.filtered_data))
   Object.entries(data.filtered_data).forEach((item) => {
-    // console.log(item[1].topic);
-    mp.set(item[1].topic, mp.get(item[1].topic) == undefined ? 1 : mp.get(item[1].topic) + 1);
+    if (item[1].pestle === pestle) {
+      // console.log(item[1].topic);
+      mp.set(item[1].topic, mp.get(item[1].topic) == undefined ? 1 : mp.get(item[1].topic) + 1);
+    }
   })
 
   console.log("Map is : ", mp)
@@ -123,8 +125,8 @@ const BreakdownChart = ({ isDashboard = false }) => {
               direction: "column",
               justify: false,
               translateX: isDashboard ? 20 : 70,
-              translateY: isDashboard ? 50 : -94,
-              itemsSpacing: 0,
+              translateY: isDashboard ? 50 : 0,
+              itemsSpacing: 5,
               itemWidth: 85,
               itemHeight: 18,
               itemTextColor: "#999",

@@ -1,15 +1,19 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select, useTheme } from "@mui/material";
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
 // import { getAlpha3Code } from "i18n-iso-countries";
 
 import { useGetRegionDataQuery } from "state/api";
 import Header from "components/Header";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import FlexBetween from "../../components/FlexBetween";
+import { WidthFull } from "@mui/icons-material";
 
 const Region = ({ isDashboard = false }) => {
+    const [source, setSource] = useState("BBC News Technology")
+
     const theme = useTheme();
     const { data } = useGetRegionDataQuery();
-    console.log("regionData is : ", data);
+    // console.log("regionData is : ", data);
 
 
     const intensity_mp = new Map();
@@ -39,11 +43,14 @@ const Region = ({ isDashboard = false }) => {
             // console.log(item[1].topic);
             // mp.set(item[1].region, mp.get(item[1].region) == undefined ? 1 : mp.get(item[1].region) + 1);
 
-            intensity_mp.has(item[1].region) === true ? intensity_mp.set(item[1].region, intensity_mp.get(item[1].region) + parseInt(item[1].intensity)) : intensity_mp.set(item[1].region, parseInt(item[1].intensity))
+            if (item[1].source === source) {
+                intensity_mp.has(item[1].region) === true ? intensity_mp.set(item[1].region, intensity_mp.get(item[1].region) + parseInt(item[1].intensity)) : intensity_mp.set(item[1].region, parseInt(item[1].intensity))
 
-            relevance_mp.has(item[1].region) === true ? relevance_mp.set(item[1].region, relevance_mp.get(item[1].region) + parseInt(item[1].relevance)) : relevance_mp.set(item[1].region, parseInt(item[1].relevance))
+                relevance_mp.has(item[1].region) === true ? relevance_mp.set(item[1].region, relevance_mp.get(item[1].region) + parseInt(item[1].relevance)) : relevance_mp.set(item[1].region, parseInt(item[1].relevance))
 
-            likelihood_mp.has(item[1].region) === true ? likelihood_mp.set(item[1].region, likelihood_mp.get(item[1].region) + parseInt(item[1].likelihood)) : likelihood_mp.set(item[1].region, parseInt(item[1].likelihood))
+                likelihood_mp.has(item[1].region) === true ? likelihood_mp.set(item[1].region, likelihood_mp.get(item[1].region) + parseInt(item[1].likelihood)) : likelihood_mp.set(item[1].region, parseInt(item[1].likelihood))
+            }
+
         })
         // likelihood_mp.forEach((key, value) => {
         //     console.log({ key: key, value: value });
@@ -80,11 +87,33 @@ const Region = ({ isDashboard = false }) => {
         const formatted_data = [IntensityLine, RelevanceLine, LikelihoodLine]
         console.log(formatted_data)
         return [formatted_data]
-    }, [data, IntensityLine, RelevanceLine, LikelihoodLine])
+    }, [data, IntensityLine, RelevanceLine, LikelihoodLine, source])
 
     return (
         <Box m="1.5rem 2.5rem">
-            <Header title="REGION" subtitle="Get an Insight of region wise data." />
+            <Header title="REGION" subtitle="Get an Insight of region from major sources." />
+            <FlexBetween>
+                <FormControl sx={{ mt: "1rem", }} >
+                    <InputLabel>Source</InputLabel>
+                    <Select
+                        value={source}
+                        label="Source"
+                        onChange={(e) => setSource(e.target.value)}
+                    >
+                        <MenuItem value="EIA">EIA</MenuItem>
+                        <MenuItem value="Bloomberg Business">Bloomberg Business</MenuItem>
+                        <MenuItem value="World Bank">World Bank</MenuItem>
+                        <MenuItem value="BBC News Technology">BBC News Technology</MenuItem>
+                        <MenuItem value="WAfrican Arguments">African Arguments</MenuItem>
+                        <MenuItem value="Sputnik News">Sputnik News</MenuItem>
+                        <MenuItem value="RUSI">RUSI</MenuItem>
+                        <MenuItem value="EPS News">EPS News</MenuItem>
+                        <MenuItem value="UNEP">UNEP</MenuItem>
+                        <MenuItem value="Common Dreams">Common Dreams</MenuItem>
+                        <MenuItem value="Wikipedia">Wikipedia</MenuItem>
+                    </Select>
+                </FormControl>
+            </FlexBetween>
             <Box
                 mt="40px"
                 height="75vh"

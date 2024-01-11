@@ -192,7 +192,7 @@ const Yearly = () => {
                             orient: "bottom",
                             tickSize: 5,
                             tickPadding: 5,
-                            tickRotation: 90,
+                            tickRotation: 0,
                             legend: "End Year",
                             legendOffset: 60,
                             legendPosition: "middle",
@@ -202,7 +202,7 @@ const Yearly = () => {
                             tickSize: 5,
                             tickPadding: 5,
                             tickRotation: 0,
-                            legend: "Total",
+                            legend: [chart],
                             legendOffset: -50,
                             legendPosition: "middle",
                         }}

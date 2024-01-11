@@ -4,7 +4,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // Below function logic represents the' Redux Toolkit Query'
 export const api = createApi({
   // baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://mern-dashboard-project-render-deploy.onrender.com/' }),
+  // baseQuery: fetchBaseQuery({ baseUrl: 'https://mern-dashboard-project-render-deploy.onrender.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5001' }),
   reducerPath: "adminApi",
 
   // These tags are based on the state & used to query sepecific data (User here)
@@ -53,6 +54,8 @@ export const api = createApi({
       query: (id) => `general/dashboard`,
       providesTags: ["Dashboard"]
     }),
+
+
 
 
 

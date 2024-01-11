@@ -1,5 +1,7 @@
 import { Box, Link, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { Image } from "@mui/icons-material";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import { useGetOverviewDataQuery } from "state/api";
 import Header from "components/Header";
@@ -10,6 +12,15 @@ const OverviewChart = ({ isDashboard = false, view }) => {
   console.log("Sales data is : ", data);
 
   const columns = [
+    {
+      field: "country",
+      headerName: "COUNTRY",
+      flex: 0.4,
+      renderCell: (params) => {
+        return <img style={{ borderRadius: "100%" }} src={`https://flagcdn.com/48x36/${params.value}.png`} alt="..." />
+      },
+      sortable: false
+    },
     {
       field: "added",
       headerName: "ADDED",
@@ -59,7 +70,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       headerName: "LINK",
       flex: 0.4,
       renderCell: (params) => {
-        return <Link href={`${params.value}`} target="_blank" color={theme.palette.primary[100]}>Link</Link>
+        return <Link href={`${params.value}`} target="_blank" color={theme.palette.primary[100]}>< OpenInNewIcon /></Link>
       },
       sortable: false
     },

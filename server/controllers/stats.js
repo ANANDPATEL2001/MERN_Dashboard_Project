@@ -21,6 +21,20 @@ export const getStatData = async (req, res) => {
             }
         });
 
+        let count = 0;
+        filtered_data.forEach((item) => {
+            const temp = lookup.byCountry(item.country);
+            // console.log("temp is : ", temp)
+            if (temp) {
+                // console.log("item -> country is : ", item.country, temp.iso3)
+                item.country = temp.iso2.toLowerCase();
+            }
+            else {
+                item.country = 'us';
+                count++;
+            }
+        })
+
         // const mp = new Map();
         // filtered_data.map((item) => {
         //     mp.set(item.region, mp.get(item.region) == undefined ? 0 : 1);

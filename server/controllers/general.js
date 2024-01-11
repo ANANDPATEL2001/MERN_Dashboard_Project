@@ -125,6 +125,7 @@ export const getTopicData = async (req, res) => {
     const filtered_data = overAllData.filter((stats) => {
       if (
         stats.topic != null && stats.topic != "" &&
+        stats.pestle != null && stats.pestle != "" &&
         stats.intensity != null && stats.intensity != "" &&
         stats.relevance != null && stats.relevance != "" &&
         stats.likelihood != null && stats.likelihood != ""
@@ -133,6 +134,15 @@ export const getTopicData = async (req, res) => {
         return { ...stats }
       }
     });
+
+    const mp = new Map();
+    filtered_data.forEach((item) => {
+      mp.set(item.pestle, mp.get(item.pestle) === undefined ? 1 : mp.get(item.pestle) + 1);
+    })
+
+    mp.forEach((key, value) => {
+      console.log({ key: key, value: value });
+    })
 
     res.status(200).json({ filtered_data })
   } catch (error) {

@@ -54,6 +54,7 @@ export const getRegionData = async (req, res) => {
         const filtered_data = overAllData.filter((stats) => {
             if (
                 stats.region != null && stats.region != "" &&
+                stats.source != null && stats.source != "" &&
                 stats.intensity != null && stats.intensity != "" &&
                 stats.relevance != null && stats.relevance != "" &&
                 stats.likelihood != null && stats.likelihood != ""
@@ -63,12 +64,16 @@ export const getRegionData = async (req, res) => {
             }
         });
 
-        // const mp = new Map();
-        // filtered_data.map((item) => {
-        //     mp.set(item.region, mp.get(item.region) == undefined ? 0 : 1);
-        // })
+        const mp = new Map();
+        filtered_data.map((item) => {
+            mp.set(item.source, mp.get(item.source) == undefined ? 0 : mp.get(item.source) + 1);
+        })
 
-        // console.log(mp.size);
+        let i = 0;
+        console.log(mp.size);
+        mp.forEach((key, value) => {
+            console.log({ key: key, value: value })
+        })
 
 
         res.status(200).json(filtered_data)
