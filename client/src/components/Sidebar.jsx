@@ -229,16 +229,18 @@ const Sidebar = ({
               <Box textAlign="left">
                 <Typography
                   fontWeight="bold"
-                  fontSize="0.9rem"
+                  fontSize="0.8rem"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
+                  {/* {user.name.toString().slice(0, 12)} */}
                   {user.name}
                 </Typography>
                 <Typography
-                  fontSize="0.8rem"
+                  fontSize="0.6rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
                   {user.occupation}
+                  {/* {user.occupation.toString().slice(0, 14)} */}
                 </Typography>
               </Box>
               <IconButton>

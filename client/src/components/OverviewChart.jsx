@@ -1,15 +1,23 @@
-import { Box, Link, useTheme } from "@mui/material";
+import { Box, Link, useMediaQuery, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Image } from "@mui/icons-material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import { useGetOverviewDataQuery } from "state/api";
 import Header from "components/Header";
+import { useState } from "react";
 
 const OverviewChart = ({ isDashboard = false, view }) => {
+  const [columnVisibilityModel, setColumnVisibilityModel] = useState({
+    TITLE: false
+  });
+
   const theme = useTheme();
   const { data, isLoading } = useGetOverviewDataQuery();
-  console.log("Sales data is : ", data);
+  // console.log("Sales data is : ", data);
+
+  const isNonMobile = useMediaQuery("(min-width: 720px)");
+  console.log("IsNonMobile value is : ", isNonMobile)
 
   const columns = [
     {
@@ -17,7 +25,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       headerName: "COUNTRY",
       flex: 0.4,
       renderCell: (params) => {
-        return <img style={{ borderRadius: "100%" }} src={`https://flagcdn.com/48x36/${params.value}.png`} alt="..." />
+        return <img style={{ borderRadius: "100%", width: isNonMobile ? "50px" : "35px" }} src={`https://flagcdn.com/48x36/${params.value}.png`} alt="..." />
       },
       sortable: false
     },
@@ -29,6 +37,23 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         return params.value.slice(0, 17);
       },
     },
+    // (isNonMobile ? (
+    //   {
+    //     field: "title",
+    //     headerName: "TITLE",
+    //     flex: 1,
+    //     sortable: false
+    //   },
+    //   {
+    //     field: "topic",
+    //     headerName: "TOPIC",
+    //     flex: 0.5,
+    //   }
+    // ) : ({
+    //   field: "topic",
+    //   headerName: "TOPIC",
+    //   flex: 0.5,
+    // })),
     {
       field: "title",
       headerName: "TITLE",
@@ -80,7 +105,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
   return (
     <>
-      <Box m="1.5rem 2.5rem">
+      <Box m="1.5rem 1.5rem">
         {/* <Header title="OVERVIEW" subtitle="List of all Major Summit & their insight" /> */}
         <Box
           mt="40px"
@@ -118,7 +143,10 @@ const OverviewChart = ({ isDashboard = false, view }) => {
             getRowId={(row) => row._id}
             rows={data || []}
             columns={columns}
-            checkboxSelection
+            columnVisibilityModel={columnVisibilityModel}
+            onColumnVisibilityModelChange={(newModel) =>
+              setColumnVisibilityModel(newModel)}
+            checkboxSelection={isNonMobile ? true : false}
           />
         </Box>
       </Box>

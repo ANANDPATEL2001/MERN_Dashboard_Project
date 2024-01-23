@@ -233,13 +233,13 @@ const Dashboard = () => {
                     borderRadius="0.55rem"
                 >
                     <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-                        Topic Stats over Technological
+                        Topic Stats over Regional Informatiion
                     </Typography>
                     <BreakdownChart isDashboard={true} pestle="Technological" />
                     <Typography
                         p="0 0.4rem"
                         fontSize="0.8rem"
-                        mb="10px"
+                        mb="20px"
                         sx={{ color: theme.palette.secondary[200] }}
                     >
                         Breakdown of overall stats and information via region b/w 2016 & 2070 year duration.

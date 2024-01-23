@@ -6,7 +6,7 @@ import { ResponsiveBar } from "@nivo/bar";
 
 const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pestle }) => {
     const { data, isLoading } = useGetPerformanceDataQuery();
-    console.log("data is :", data);
+    // console.log("data is :", data);
     // const isNonMobile = useMediaQuery("min-width : 1200px");
     const theme = useTheme();
 
@@ -85,7 +85,7 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
             })
             target_object.sector = key;
             // target_object = Object.assign({ "sector": key }, target_object);
-            console.log("target_object is : ", target_object);
+            // console.log("target_object is : ", target_object);
             formattedData.push(target_object);
         }
     }, [data, startYear, endYear, country, pestle])
@@ -201,7 +201,20 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
             "donutColor": "hsl(340, 70%, 50%)",
         }
     ]
-    // console.log("New data is : ", Array.from(newData.keys()))
+    console.log("New data is : ", Array.from(newData.values()))
+    console.log("New data is : ", Array.from(formattedData.values()))
+    // for (const [key, value] of Object.entries(formattedData)) {
+    //     // console.log(`${key}: ${value}`);
+    //     for (const [k, v] of Object.entries(value)) {
+    //         // console.log(`${k}: ${v}`);
+    //         console.log({
+    //             k_type: typeof (k),
+    //             key: k,
+    //             v_type: typeof (v),
+    //             value: v
+    //         })
+    //     }
+    // }
 
     return (
         <>
@@ -214,7 +227,7 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
             >
                 {(data && !isLoading) ?
                     <ResponsiveBar
-                        data={Array.from(formattedData)}
+                        data={Array.from(formattedData.values())}
                         theme={{
                             axis: {
                                 domain: {
@@ -363,7 +376,7 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
 
                 {(data && !isLoading) ?
                     <ResponsiveBar
-                        data={newData}
+                        data={Array.from(newData.values())}
                         keys={[
                             'hot dog',
                             'burger',
@@ -378,40 +391,40 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
                         valueScale={{ type: 'linear' }}
                         indexScale={{ type: 'band', round: true }}
                         colors={{ scheme: 'nivo' }}
-                        defs={[
-                            {
-                                id: 'dots',
-                                type: 'patternDots',
-                                background: 'inherit',
-                                color: '#38bcb2',
-                                size: 4,
-                                padding: 1,
-                                stagger: true
-                            },
-                            {
-                                id: 'lines',
-                                type: 'patternLines',
-                                background: 'inherit',
-                                color: '#eed312',
-                                rotation: -45,
-                                lineWidth: 6,
-                                spacing: 10
-                            }
-                        ]}
-                        fill={[
-                            {
-                                match: {
-                                    id: 'fries'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'sandwich'
-                                },
-                                id: 'lines'
-                            }
-                        ]}
+                        // defs={[
+                        //     {
+                        //         id: 'dots',
+                        //         type: 'patternDots',
+                        //         background: 'inherit',
+                        //         color: '#38bcb2',
+                        //         size: 4,
+                        //         padding: 1,
+                        //         stagger: true
+                        //     },
+                        //     {
+                        //         id: 'lines',
+                        //         type: 'patternLines',
+                        //         background: 'inherit',
+                        //         color: '#eed312',
+                        //         rotation: -45,
+                        //         lineWidth: 6,
+                        //         spacing: 10
+                        //     }
+                        // ]}
+                        // fill={[
+                        //     {
+                        //         match: {
+                        //             id: 'fries'
+                        //         },
+                        //         id: 'dots'
+                        //     },
+                        //     {
+                        //         match: {
+                        //             id: 'sandwich'
+                        //         },
+                        //         id: 'lines'
+                        //     }
+                        // ]}
                         borderColor={{
                             from: 'color',
                             modifiers: [
@@ -476,9 +489,9 @@ const PerformanceChart = ({ isDashboard = false, startYear, endYear, country, pe
                                 ]
                             }
                         ]}
-                        role="application"
-                        ariaLabel="Nivo bar chart demo"
-                        barAriaLabel={e => e.id + ": " + e.formattedValue + " in country: " + e.indexValue}
+                    // role="application"
+                    // ariaLabel="Nivo bar chart demo"
+                    // barAriaLabel={e => e.id + ": " + e.formattedValue + " in country: " + e.indexValue}
                     />
 
                     : "Loading..."}

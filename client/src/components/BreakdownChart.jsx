@@ -5,8 +5,9 @@ import { useGetTopicDataQuery } from "state/api";
 
 const BreakdownChart = ({ isDashboard = false, pestle }) => {
   const { data, isLoading } = useGetTopicDataQuery();
-  console.log("Topic data is :", data);
-  const isNonMobile = useMediaQuery("min-width : 1200px");
+  // console.log("Topic data is :", data);
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+  console.log("isNonMedia value  is : ", isNonMobile)
   const theme = useTheme();
 
   if (!data || isLoading) return "Loading...";
@@ -104,7 +105,7 @@ const BreakdownChart = ({ isDashboard = false, pestle }) => {
           sortByValue={true}
           innerRadius={0.45}
           activeOuterRadiusOffset={8}
-          arcLinkLabelsDiagonalLength={28}
+          arcLinkLabelsDiagonalLength={isNonMobile ? 25 : 10}
           borderWidth={1}
           borderColor={{
             from: "color",
@@ -112,14 +113,14 @@ const BreakdownChart = ({ isDashboard = false, pestle }) => {
           }}
           enableArcLinkLabels={!isDashboard}
           arcLinkLabelsTextColor={theme.palette.secondary[200]}
-          arcLinkLabelsThickness={2}
+          arcLinkLabelsThickness={3}
           arcLinkLabelsColor={{ from: "color" }}
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{
             from: "color",
             modifiers: [["darker", 2]],
           }}
-          legends={!isDashboard ? [
+          legends={!isDashboard ? isNonMobile ? [
             {
               anchor: "top-right",
               direction: "column",
@@ -143,7 +144,7 @@ const BreakdownChart = ({ isDashboard = false, pestle }) => {
                 },
               ],
             },
-          ] : []}
+          ] : [] : []}
         />
         <Box
           position="absolute"

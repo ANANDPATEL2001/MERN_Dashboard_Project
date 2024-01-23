@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, useTheme } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select, useMediaQuery, useTheme } from "@mui/material";
 import { ResponsiveRadialBar } from "@nivo/radial-bar";
 // import { getAlpha3Code } from "i18n-iso-countries";
 
@@ -14,6 +14,9 @@ const Region = ({ isDashboard = false }) => {
     const theme = useTheme();
     const { data } = useGetRegionDataQuery();
     // console.log("regionData is : ", data);
+
+    const isNonMobile = useMediaQuery("(min-width: 1000px)");
+    console.log("isNonMedia value  is : ", isNonMobile)
 
 
     const intensity_mp = new Map();
@@ -178,7 +181,7 @@ const Region = ({ isDashboard = false }) => {
                         radialAxisStart={{ tickSize: 0, tickPadding: 4, tickRotation: 36 }}
                         circularAxisOuter={{ tickSize: 13, tickPadding: 10, tickRotation: 4 }}
                         labelsSkipAngle={16}
-                        legends={[
+                        legends={isNonMobile ? [
                             {
                                 anchor: 'right',
                                 direction: 'column',
@@ -201,7 +204,7 @@ const Region = ({ isDashboard = false }) => {
                                     }
                                 ]
                             }
-                        ]}
+                        ] : []}
                     />
                 ) : (
                     <>Loading...</>

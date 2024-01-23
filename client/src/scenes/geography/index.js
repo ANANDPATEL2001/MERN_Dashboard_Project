@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
 // import { getAlpha3Code } from "i18n-iso-countries";
 
@@ -10,18 +10,19 @@ import { useMemo } from "react";
 const Geography = () => {
   const theme = useTheme();
   const { data } = useGetGeoDataQuery();
-  console.log("geoData is : ", data);
+  const isNonMedium = useMediaQuery("(min-width: 1000px)");
+  const isNonMobile = useMediaQuery("(min-width: 720px)");
+  // console.log("geoData is : ", data);
+
 
 
   const mp = new Map();
-  console.log(typeof (data))
-
   const [formatted_data] = useMemo(() => {
     if (!data) return [];
 
     Object.entries(data).forEach((item) => {
       // console.log(item[1].topic);
-      mp.set(item[1].country, mp.get(item[1].country) == undefined ? 1 : mp.get(item[1].country) + 1);
+      mp.set(item[1].country, mp.get(item[1].country) === undefined ? 1 : mp.get(item[1].country) + 1);
     })
     // console.log("Map is : ", mp)
 
@@ -35,7 +36,7 @@ const Geography = () => {
     })
 
     return [formatted_data]
-  }, [data])
+  }, [data, mp])
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -90,12 +91,12 @@ const Geography = () => {
             unknownColor="#666666"
             label="properties.name"
             valueFormat=".2s"
-            projectionScale={150}
+            projectionScale={isNonMobile ? 150 : 100}
             projectionTranslation={[0.50, 0.65]}
             projectionRotation={[0, 0, 0]}
             borderWidth={1.3}
             borderColor={theme.palette.grey[900]}
-            legends={[
+            legends={isNonMedium ? [
               {
                 anchor: "bottom-right",
                 direction: "column",
@@ -119,7 +120,7 @@ const Geography = () => {
                   },
                 ],
               },
-            ]}
+            ] : []}
           />
         ) : (
           <>Loading...</>

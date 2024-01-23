@@ -99,16 +99,18 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                             <Box textAlign="left">
                                 <Typography
                                     fontWeight="bold"
-                                    fontSize="0.85rem"
+                                    fontSize="0.75rem"
                                     sx={{ color: theme.palette.secondary[100] }}
                                 >
                                     {user.name}
+                                    {/* {user.name.toString().slice(0, 12)} */}
                                 </Typography>
                                 <Typography
-                                    fontSize="0.75rem"
+                                    fontSize="0.5rem"
                                     sx={{ color: theme.palette.secondary[200] }}
                                 >
                                     {user.occupation}
+                                    {/* {user.occupation.toString().slice(0, 14)} */}
                                 </Typography>
                             </Box>
                             <ArrowDropDownOutlined
