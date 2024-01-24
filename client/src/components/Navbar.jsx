@@ -25,6 +25,7 @@ import FlexBetween from "components/FlexBetween";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "state";
 import profileImage from "assets/profile.jpg";
+import { useLocation } from "react-router-dom";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, getLayoutData }) => {
     const isNonMobile = useMediaQuery("(min-width : 1000px)")
@@ -32,6 +33,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, getLayoutData }) => {
 
     const dispatch = useDispatch();
     const theme = useTheme();
+    const { pathname } = useLocation()
+    // console.log(pathname.substring(1))
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpen = Boolean(anchorEl);
@@ -43,7 +46,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, getLayoutData }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        getLayoutData(searchInput);
+        if (pathname.substring(1) === "summit")
+            getLayoutData(searchInput);
         setSearchInput("")
     }
 
@@ -124,9 +128,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, getLayoutData }) => {
                                     {/* {user.occupation.toString().slice(0, 14)} */}
                                 </Typography>
                             </Box>
-                            <ArrowDropDownOutlined
+                            {/* <ArrowDropDownOutlined
                                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-                            />
+                            /> */}
                         </Button>
                         <Menu
                             anchorEl={anchorEl}

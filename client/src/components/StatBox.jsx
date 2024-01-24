@@ -1,9 +1,11 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import FlexBetween from "./FlexBetween";
 
 const StatBox = ({ title, value, increase, icon, description }) => {
   const theme = useTheme();
+  const isNonMediumScreen = useMediaQuery("(min-width : 1200px)")
+
   return (
     <Box
       gridColumn="span 2"
@@ -17,7 +19,10 @@ const StatBox = ({ title, value, increase, icon, description }) => {
       borderRadius="0.55rem"
     >
       <FlexBetween>
-        <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
+        <Typography
+          fontSize={isNonMediumScreen ? "13px" : "17px"}
+          variant="h6"
+          sx={{ color: theme.palette.secondary[100] }}>
           {title}
         </Typography>
         {icon}
@@ -38,7 +43,9 @@ const StatBox = ({ title, value, increase, icon, description }) => {
         >
           {increase}
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography
+          fontSize={isNonMediumScreen ? "11px" : "15px"}
+        >{description}</Typography>
       </FlexBetween>
     </Box>
   );

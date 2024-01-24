@@ -30,6 +30,7 @@ import TotalIntensity from "../../components/TotalIntensity";
 const Dashboard = () => {
     const theme = useTheme();
     const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
+
     const { data, isLoading } = useGetDashboardQuery();
     const newData = useGetOverviewDataQuery();
     console.log("New Summit data is :", newData.data)
@@ -164,7 +165,7 @@ const Dashboard = () => {
                     <TotalIntensity />
                 </Box>
                 <StatBox
-                    title="No. of Times countries Explored"
+                    title="Times countries Explored"
                     value={country}
                     increase="+5%"
                     description="Since last month"
@@ -229,18 +230,20 @@ const Dashboard = () => {
                     gridColumn="span 4"
                     gridRow="span 3"
                     backgroundColor={theme.palette.background.alt}
-                    p="1.5rem"
+                    // p="1.5rem"
                     borderRadius="0.55rem"
                 >
-                    <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
+                    <Typography p="1.5rem" variant="h6" sx={{ color: theme.palette.secondary[100] }}>
                         Topic Stats over Regional Informatiion
                     </Typography>
                     <BreakdownChart isDashboard={true} pestle="Technological" />
                     <Typography
                         p="0 0.4rem"
                         fontSize="0.8rem"
-                        mb="20px"
-                        sx={{ color: theme.palette.secondary[200] }}
+                        m="10px 0"
+                        sx={{
+                            color: theme.palette.secondary[200]
+                        }}
                     >
                         Breakdown of overall stats and information via region b/w 2016 & 2070 year duration.
                     </Typography>

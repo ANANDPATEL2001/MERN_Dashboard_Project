@@ -55,10 +55,12 @@ const BreakdownChart = ({ isDashboard = false, pestle }) => {
     <>
       <Box
         gridColumn="span 12"
-        height={isDashboard ? "500px" : "75vh"}
+        marginBottom={isDashboard ? "-3rem" : undefined}
+        marginTop={isDashboard ? "-1.5rem" : undefined}
+        height={isDashboard ? "100%" : "75vh"}
         width={undefined}
-        minHeight={isDashboard ? "325px" : undefined}
-        minWidth={isDashboard ? "325px" : undefined}
+        minHeight={isDashboard ? "300px" : undefined}
+        minWidth={isDashboard ? "300px" : undefined}
         position="relative"
       >
         <ResponsivePie

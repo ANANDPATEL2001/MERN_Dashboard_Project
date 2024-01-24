@@ -91,6 +91,7 @@ const Products = ({ task }) => {
     // Here, 'data' & 'isLoading' are the return values/parameters in 'redux-toolkit query'
     const { data, isLoading } = useGetOverviewDataQuery();
     console.log("products data is :", data);
+
     const isNonMobile = useMediaQuery("(min-width: 1200px)");
     const theme = useTheme();
     // console.log(theme)
