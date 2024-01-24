@@ -14,8 +14,19 @@ const Topic = () => {
     return (
         <Box m="1.5rem 2.5rem">
             <Header title="TOPIC" subtitle="Breakdown of topic wise info" />
-            <Box mt="40px" height="75vh">
-                <FlexBetween>
+            <Box
+                display="grid"
+                gridTemplateColumns="repeat(12, 1fr)"
+                // gridAutoRows="160px"
+                gap="20px"
+                // sx={{
+                //     "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+                // }} 
+                mt="40px"
+                height="75vh">
+                <FlexBetween
+                    gridColumn="span 12"
+                >
                     <Box display="flex" justifyContent="flex-end" gap="0.5rem">
                         <FormControl sx={{ mt: "1rem" }}>
                             <InputLabel>Pestle</InputLabel>

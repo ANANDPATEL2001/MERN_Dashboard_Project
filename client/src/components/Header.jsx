@@ -4,7 +4,11 @@ import React from "react";
 const Header = ({ title, subtitle }) => {
     const theme = useTheme();
     return (
-        <Box>
+        <Box
+            sx={{
+                gridColumn: "span 12",
+            }}
+        >
             <Typography
                 variant="h2"
                 color={theme.palette.secondary[100]}

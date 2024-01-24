@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+let initialState = {
     mode: "dark",
     userId: "63701cc1f03239569400000e",
 };

@@ -54,7 +54,8 @@ const BreakdownChart = ({ isDashboard = false, pestle }) => {
   return (
     <>
       <Box
-        height={isDashboard ? "500px" : "100%"}
+        gridColumn="span 12"
+        height={isDashboard ? "500px" : "75vh"}
         width={undefined}
         minHeight={isDashboard ? "325px" : undefined}
         minWidth={isDashboard ? "325px" : undefined}

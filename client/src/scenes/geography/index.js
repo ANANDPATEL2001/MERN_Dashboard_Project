@@ -39,9 +39,20 @@ const Geography = () => {
   }, [data, mp])
 
   return (
-    <Box m="1.5rem 2.5rem">
-      <Header title="GEOGRAPHY" subtitle="Find where major summit happened." />
+    <Box
+      m="1.5rem 2.5rem"
+      display="grid"
+      gridTemplateColumns="repeat(12, 1fr)"
+      // gridAutoRows="160px"
+      gap="20px"
+    // sx={{
+    //     "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+    // }}
+    >
+      <Header gridColumn="span 12" title="GEOGRAPHY" subtitle="Find where major summit happened." />
       <Box
+        gridColumn="span 12"
+        // gridRow="auto"
         mt="40px"
         height="75vh"
         border={`1px solid ${theme.palette.secondary[200]}`}

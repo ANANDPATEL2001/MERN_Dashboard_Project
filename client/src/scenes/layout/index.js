@@ -7,13 +7,19 @@ import Navbar from "components/Navbar";
 import Sidebar from "components/Sidebar";
 import { useGetUserQuery } from "state/api";
 
-const Layout = () => {
-    const isNonMobile = useMediaQuery("(min-width: 600px)");
+const Layout = ({ getAppData }) => {
+    const isNonMobile = useMediaQuery("(min-width: 700px)");
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
     // Following will make the call to 'Redux Toolkit' to fetch user info.
     const userId = useSelector((state) => state.global.userId);
     const { data } = useGetUserQuery(userId);
     // console.log(data);
+
+    const getLayoutData = (data) => {
+        // console.log("Layout data is : ", data)
+        getAppData(data)
+    }
 
     return (
         <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
@@ -27,6 +33,7 @@ const Layout = () => {
             />
             <Box flexGrow={1}>
                 <Navbar
+                    getLayoutData={getLayoutData}
                     user={data || {}}
                     isSidebarOpen={isSidebarOpen}
                     setIsSidebarOpen={setIsSidebarOpen}

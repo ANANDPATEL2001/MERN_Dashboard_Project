@@ -73,9 +73,19 @@ const Yearly = () => {
 
 
     return (
-        <Box m="1.5rem 2.5rem">
+        <Box
+            display="grid"
+            gridTemplateColumns="repeat(12, 1fr)"
+            // gridAutoRows="160px"
+            gap="20px"
+            // sx={{
+            //     "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+            // }}
+            m="1.5rem 2rem">
             <Header title="YEARLY DATA" subtitle="Chart of yearly data" />
-            <Box height="75vh">
+            <Box
+                gridColumn="span 12"
+                height="75vh">
                 <FlexBetween>
                     <FormControl sx={{ mt: "1rem" }}>
                         <InputLabel>Chart</InputLabel>

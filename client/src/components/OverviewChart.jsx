@@ -105,9 +105,18 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
   return (
     <>
-      <Box m="1.5rem 1.5rem">
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(12, 1fr)"
+        // gridAutoRows="160px"
+        gap="20px"
+        // sx={{
+        //     "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+        // }}
+        m="1.5rem 1.5rem">
         {/* <Header title="OVERVIEW" subtitle="List of all Major Summit & their insight" /> */}
         <Box
+          gridColumn="span 12"
           mt="40px"
           height="75vh"
           sx={{

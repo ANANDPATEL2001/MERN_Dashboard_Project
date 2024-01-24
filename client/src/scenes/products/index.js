@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
     Box,
     Card,
@@ -11,6 +11,7 @@ import {
     useTheme,
     useMediaQuery,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import Header from "components/Header";
 import { useGetOverviewDataQuery } from "state/api";
@@ -27,7 +28,6 @@ const Product = ({
 }) => {
     const theme = useTheme()
     const [isExpanded, setIsExpanded] = useState(false);
-
     return (
         <Card
             sx={{
@@ -87,19 +87,33 @@ const Product = ({
     );
 };
 
-const Products = () => {
+const Products = ({ task }) => {
     // Here, 'data' & 'isLoading' are the return values/parameters in 'redux-toolkit query'
     const { data, isLoading } = useGetOverviewDataQuery();
     console.log("products data is :", data);
     const isNonMobile = useMediaQuery("(min-width: 1200px)");
     const theme = useTheme();
-    console.log(theme)
+    // console.log(theme)
+
+    let newData = []
+    useMemo(() => {
+        if (!data || isLoading) return "Loading...";
+        Object.entries(data).map((item) => {
+            if (item[1].topic === task) {
+                newData.push(item[1])
+            }
+            return;
+        })
+    }, [data, task])
+
+    console.log("NewData is : ", newData)
 
     return (
         <Box m="1.5rem 2.5rem">
             <Header title="SUMMITS" subtitle="See the most Hot topics today." />
             {data || !isLoading ? (
                 <Box
+                    // class="MuiBox-root css-qdqrml"
                     mt="20px"
                     display="grid"
                     gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -111,7 +125,30 @@ const Products = () => {
                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                     }}
                 >
-                    {data.map(
+                    {!(newData.length) ? data.map(
+                        ({
+                            _id,
+                            topic,
+                            title,
+                            sector,
+                            intensity,
+                            region,
+                            source,
+                            relevance,
+                        }) => (
+                            <Product
+                                key={_id}
+                                _id={_id}
+                                topic={topic}
+                                title={title}
+                                sector={sector}
+                                intensity={intensity}
+                                region={region}
+                                source={source}
+                                relevance={relevance}
+                            />
+                        )
+                    ) : newData.map(
                         ({
                             _id,
                             topic,

@@ -93,9 +93,19 @@ const Region = ({ isDashboard = false }) => {
     }, [data, IntensityLine, RelevanceLine, LikelihoodLine, source])
 
     return (
-        <Box m="1.5rem 2.5rem">
+        <Box m="1.5rem 2.5rem"
+            display="grid"
+            gridTemplateColumns="repeat(12, 1fr)"
+            // gridAutoRows="160px"
+            gap="20px"
+        // sx={{
+        //     "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+        // }}
+        >
             <Header title="REGION" subtitle="Get an Insight of region from major sources." />
-            <FlexBetween>
+            <FlexBetween
+                gridColumn="span 12"
+            >
                 <FormControl sx={{ mt: "1rem", }} >
                     <InputLabel>Source</InputLabel>
                     <Select
@@ -119,6 +129,7 @@ const Region = ({ isDashboard = false }) => {
             </FlexBetween>
             <Box
                 mt="40px"
+                gridColumn="span 12"
                 height="75vh"
                 border={`1px solid ${theme.palette.secondary[200]}`}
                 borderRadius="4px"

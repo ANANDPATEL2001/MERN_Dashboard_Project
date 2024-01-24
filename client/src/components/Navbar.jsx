@@ -7,10 +7,6 @@ import {
     SettingsOutlined,
     ArrowDropDownOutlined,
 } from "@mui/icons-material";
-import FlexBetween from "components/FlexBetween";
-import { useDispatch } from "react-redux";
-import { setMode } from "state";
-import profileImage from "assets/profile.jpg";
 import {
     AppBar,
     Button,
@@ -22,9 +18,18 @@ import {
     Menu,
     MenuItem,
     useTheme,
+    useMediaQuery,
 } from "@mui/material";
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+import FlexBetween from "components/FlexBetween";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode } from "state";
+import profileImage from "assets/profile.jpg";
+
+const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, getLayoutData }) => {
+    const isNonMobile = useMediaQuery("(min-width : 1000px)")
+    const [searchInput, setSearchInput] = useState("")
+
     const dispatch = useDispatch();
     const theme = useTheme();
 
@@ -32,9 +37,15 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
     const isOpen = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-        console.log("AnchorEl is :", anchorEl);
+        // console.log("AnchorEl is :", anchorEl);
     }
     const handleClose = () => setAnchorEl(null);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        getLayoutData(searchInput);
+        setSearchInput("")
+    }
 
     return (
         <AppBar
@@ -52,19 +63,19 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                     </IconButton>
                     <FlexBetween
                         backgroundColor={theme.palette.background.alt}
-                        borderRadius="9px"
-                        gap="3rem"
-                        p="0.1rem 1.5rem"
+                        borderRadius="7px"
+                        gap="4rem"
+                        p="0.1rem 0.8rem"
                     >
-                        <InputBase placeholder="Search..." />
-                        <IconButton>
+                        <InputBase placeholder="Search the topic..." onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
+                        <IconButton onClick={handleSubmit}>
                             <Search />
                         </IconButton>
                     </FlexBetween>
                 </FlexBetween>
 
                 {/* RIGHT SIDE */}
-                <FlexBetween gap="1.5rem">
+                <FlexBetween gap={isNonMobile ? "1.5rem" : "0.5rem"}>
                     <IconButton onClick={() => dispatch(setMode())}>
                         {theme.palette.mode === "dark" ? (
                             <DarkModeOutlined sx={{ fontSize: "25px" }} />
@@ -72,9 +83,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                             <LightModeOutlined sx={{ fontSize: "25px" }} />
                         )}
                     </IconButton>
-                    <IconButton>
+                    {/* <IconButton>
                         <SettingsOutlined sx={{ fontSize: "25px" }} />
-                    </IconButton>
+                    </IconButton> */}
 
                     <FlexBetween>
                         <Button
